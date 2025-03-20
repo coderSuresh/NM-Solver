@@ -26,7 +26,7 @@ function newton_raphson(equation, x0, decimalPlaces = 2) {
     do {
         count++;
         if (count > maxIterations) {
-            throw new Error(`Not convergent.`);
+            throw new Error(`Max iterations reached without solution.`);
         }
 
         //evaluating f(x) and f'(x) as fx and fpx

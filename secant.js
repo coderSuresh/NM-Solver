@@ -30,7 +30,7 @@ function secant_method(equation, x0, x1, decimalPlaces = 2) {
     do {
         count++;
         if (count > maxIterations) {
-            throw new Error('Not convergent.');
+            throw new Error('Max iterations reached without solution.');
         }
 
         // checking for division by zero

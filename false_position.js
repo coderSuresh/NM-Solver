@@ -23,9 +23,10 @@ function false_position(equation, a, b, decimalPlaces = 2) {
     const steps = [];
     let count = 0;
     let foundExactRoot = false;
+    const maxIterations = 100;
 
     //looping until we get solution correct upto required decimal places
-    while (currentB - currentA > 2 * tolerance) {
+    while (currentB - currentA > 2 * tolerance && count < maxIterations) {
         count++;
         const fa = f(currentA);
         const fb = f(currentB);
@@ -55,6 +56,10 @@ function false_position(equation, a, b, decimalPlaces = 2) {
         } else {
             currentA = c;
         }
+    }
+
+    if (count >= maxIterations) {
+    throw new Error("Max iterations reached without solution.");
     }
 
     //one last loop so we get the solution (c) pushed into steps array

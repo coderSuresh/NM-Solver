@@ -23,9 +23,10 @@ function bisection_method(equation, a, b, decimalPlaces = 2) {
     const steps = [];
     let count = 0;
     let foundExactRoot = false;
+    const maxIterations = 100;
 
     //looping until we get solution correct upto required decimal places
-    while (currentB - currentA > 2 * tolerance) {
+    while (currentB - currentA > 2 * tolerance && count < maxIterations) {
         count++;
         const c = (currentA + currentB) / 2;
         const fa = f(currentA);
@@ -55,6 +56,10 @@ function bisection_method(equation, a, b, decimalPlaces = 2) {
         } else {
             currentA = c;
         }
+    }
+
+    if (count >= maxIterations) {
+    throw new Error("Max iterations reached without solution.");
     }
 
     //one last loop so we get the solution (c) pushed into steps array
