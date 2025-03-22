@@ -21,6 +21,7 @@
 - Bisection Method  
 - Newton-Raphson Method  
 - Secant Method  
+- False Position Method
 
 ### 🔹 Linear System Solvers  
 
