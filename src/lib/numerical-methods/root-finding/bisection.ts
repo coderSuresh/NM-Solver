@@ -23,13 +23,13 @@ export function bisection(params: BisectionParams): BisectionResult {
     if (fa * fb >= 0) {
         return {
             title: "Bisection Method Solution",
-            steps: [{
-                stepNumber: 1,
-                description: "No root guaranteed in the given interval",
-                formula: "$f(a) \cdot f(b) < 0$",
-                calculation: `$f(${a}) = ${fa.toFixed(6)}$, $f(${b}) = ${fb.toFixed(6)}$`,
-                result: "Interval is invalid for the bisection method."
-            }],
+            steps: [createStep(
+                1,
+                "No root guaranteed in the given interval",
+                "$f(a) \\cdot f(b) < 0$",
+                `$f(${a}) = ${fa.toFixed(6)}, f(${b}) = ${fb.toFixed(6)}`,
+                "Interval is invalid for the bisection method."
+            )],
             iterationTable: [],
             finalAnswer: `No root guaranteed in the interval [${a}, ${b}]`
         };
@@ -47,9 +47,9 @@ export function bisection(params: BisectionParams): BisectionResult {
         steps.push(createStep(
             iteration,
             `Iteration ${iteration}`,
-            "$c = \\frac{a + b}{2}$",
-            `$c = \\frac{${customFormatNumber(a)} + ${customFormatNumber(b)}}{2} = ${customFormatNumber(c)}$`,
-            `$f(a) = ${customFormatNumber(fa)}, f(b) = ${customFormatNumber(fb)}, f(c) = ${customFormatNumber(fc)}`
+            "$$c = \\frac{a + b}{2}$$",
+            `$$c = \\frac{${customFormatNumber(a)} + ${customFormatNumber(b)}}{2} = ${customFormatNumber(c)}$$`,
+            `$$f(a) = ${customFormatNumber(fa)}$$\n$$f(b) = ${customFormatNumber(fb)}$$\n$$f(c) = ${customFormatNumber(fc)}$$`
         ));
 
         table.push([
@@ -88,9 +88,9 @@ export function bisection(params: BisectionParams): BisectionResult {
         steps.push(createStep(
             iteration,
             `Final Iteration ${iteration}`,
-            "$c = \\frac{a + b}{2}$",
-            `$c = \\frac{${customFormatNumber(a)} + ${customFormatNumber(b)}}{2} = ${customFormatNumber(c)}$`,
-            `$f(a) = ${customFormatNumber(faFinal)}, f(b) = ${customFormatNumber(fbFinal)}, f(c) = ${customFormatNumber(fcFinal)}`
+            "$$c = \\frac{a + b}{2}$$",
+            `$$c = \\frac{${customFormatNumber(a)} + ${customFormatNumber(b)}}{2} = ${customFormatNumber(c)}$$`,
+            `$$f(a) = ${customFormatNumber(faFinal)}$$\n$$f(b) = ${customFormatNumber(fbFinal)}$$\n$$f(c) = ${customFormatNumber(fcFinal)}$$`
         ));
 
         const previousC = table[table.length - 1][3]; // Get the previous c value from the table
