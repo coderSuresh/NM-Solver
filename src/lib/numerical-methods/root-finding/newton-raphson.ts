@@ -11,7 +11,7 @@ export function newtonRaphson(params: NewtonRaphsonParams): NewtonRaphsonResult 
     // Setting up tolerance and max iterations
     const tolerance = 0.5 * Math.pow(10, -decimalPlaces);
 
-    let currentX = x0;
+    let currentX = Number(x0);
     const steps: NewtonRaphsonStep[] = [];
     let count = 0;
 

@@ -13,8 +13,8 @@ export function secantMethod(params: SecantMethodParams): SecantMethodResult {
     const tolerance = 0.5 * Math.pow(10, -decimalPlaces);
 
     // Initialize variables
-    let previousX = x0;
-    let currentX = x1;
+    let previousX = Number(x0);
+    let currentX = Number(x1);
     let f_prev = evaluateExpression(func, { x: previousX });
     let f_current = evaluateExpression(func, { x: currentX });
 

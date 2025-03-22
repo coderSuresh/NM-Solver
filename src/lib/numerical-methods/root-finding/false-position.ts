@@ -18,8 +18,8 @@ export function falsePosition(params: BisectionParams) {
     const tol = 0.5 * Math.pow(10, -decimalPlaces);
 
     // Initialize endpoints
-    let a = a0;
-    let b = b0;
+    let a = Number(a0);
+    let b = Number(b0);
     let fa = evaluateExpression(func, { x: a });
     let fb = evaluateExpression(func, { x: b });
 
