@@ -9,8 +9,8 @@ export function bisection(params: BisectionParams): BisectionResult {
         maxIterations = 100
     } = params;
 
-    let a = lowerBound!;
-    let b = upperBound!;
+    let a = Number(lowerBound!);
+    let b = Number(upperBound!);
     let iteration = 0;
     const tolerance = 0.5 * Math.pow(10, -decimalPlaces);
 

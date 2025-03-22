@@ -249,8 +249,7 @@ export function MethodInputForm({ method, onSolve, loading }: MethodInputFormPro
                             placeholder={field.placeholder}
                             value={formData[field.id] as string | number | readonly string[] | undefined || ""}
                             onChange={(e) => {
-                                const value = field.type === "number" ? Number.parseFloat(e.target.value) : e.target.value
-                                handleChange(field.id, value)
+                                handleChange(field.id, e.target.value)
                             }}
                             required
                             className={field.className}
