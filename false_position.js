@@ -30,7 +30,7 @@ function false_position(equation, a, b, decimalPlaces = 2) {
         count++;
         const fa = f(currentA);
         const fb = f(currentB);
-         const c = (currentA * fb - currentB * fa) / (fb - fa);
+        const c = (currentA * fb - currentB * fa) / (fb - fa);
         const fc = f(c);
 
         //adding current step into steps array
