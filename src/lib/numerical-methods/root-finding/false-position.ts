@@ -5,7 +5,7 @@ function customFormatNumber(num: number, precision = 6): string {
     return num.toFixed(precision);
 }
 
-export function falsePosition(params: any) {
+export function falsePosition(params: BisectionParams) {
     const {
         function: func,
         lowerBound: a0,
@@ -28,7 +28,7 @@ export function falsePosition(params: any) {
         throw new Error('Root does not exist within the interval.');
     }
 
-    const steps: any[] = [];
+    const steps: FalsePositionStep[] = [];
     let iter = 0;
     let c = a;                      // Current estimate of the root.
     let prevC: number | null = null; // Previous estimate for error computation.

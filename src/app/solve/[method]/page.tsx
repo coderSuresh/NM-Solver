@@ -10,6 +10,7 @@ import { solveNumericalMethod } from "@/lib/solve-numerical-methods"
 import { Toast } from "@/components/toast"
 import type { Solution } from "@/lib/numerical-methods/utils"
 import { generatePDF } from "@/lib/pdf-generator"
+import GoToTop from "@/components/go-to-top"
 
 const methodDisplayNames: Record<string, string> = {
     "newton-raphson": "Newton-Raphson Method",
@@ -36,7 +37,7 @@ export default function SolvePage() {
     const method = params.method as string
     const methodTitle = methodDisplayNames[method] || method
 
-    const handleSolve = async (formData: any) => {
+    const handleSolve = async (formData: Record<string, unknown>) => {
         setLoading(true)
         try {
             // Simulate calculation time for better UX
@@ -50,9 +51,17 @@ export default function SolvePage() {
                 variant: "default",
             })
 
+            const solutionContainer = document.getElementById("solution")
+            if (solutionContainer) {
+                window.scrollTo({
+                    top: solutionContainer.offsetTop - 100,
+                    behavior: "smooth",
+                })
+            }
+
             // Save to local storage history
             saveToHistory(method, formData, result)
-        } catch (error) {
+        } catch {
             setToast({
                 title: "Error solving problem",
                 variant: "destructive",
@@ -62,7 +71,7 @@ export default function SolvePage() {
         }
     }
 
-    const saveToHistory = (method: string, input: any, result: Solution) => {
+    const saveToHistory = (method: string, input: Record<string, unknown>, result: Solution) => {
         try {
             const history = JSON.parse(localStorage.getItem("numericalMethodsHistory") || "[]")
             history.unshift({
@@ -97,7 +106,7 @@ export default function SolvePage() {
                 title: "PDF Generated",
                 variant: "default",
             })
-        } catch (error) {
+        } catch {
             setToast({
                 title: "Error generating PDF",
                 variant: "destructive",
@@ -113,6 +122,8 @@ export default function SolvePage() {
                 <Button variant="ghost" onClick={() => router.push("/")} className="mb-4">
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Methods
                 </Button>
+
+                <GoToTop />
 
                 <Toast
                     title={toast.title}
@@ -135,25 +146,27 @@ export default function SolvePage() {
                     </CardContent>
                 </Card>
 
-                {solution && (
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between">
-                            <div>
-                                <CardTitle>Step-by-Step Solution</CardTitle>
-                                <CardDescription>Detailed breakdown of the solution process</CardDescription>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                                <Button variant="outline" size="sm" onClick={handleDownloadPDF} disabled={pdfLoading}>
-                                    <Download className="mr-2 h-4 w-4" />
-                                    {pdfLoading ? "Generating..." : "PDF"}
-                                </Button>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <StepByStepSolution solution={solution} />
-                        </CardContent>
-                    </Card>
-                )}
+                <div id="solution" className="min-h-[70vh]">
+                    {solution && (
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between" >
+                                <div>
+                                    <CardTitle>Step-by-Step Solution</CardTitle>
+                                    <CardDescription>Detailed breakdown of the solution process</CardDescription>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                    <Button variant="outline" size="sm" onClick={handleDownloadPDF} disabled={pdfLoading}>
+                                        <Download className="mr-2 h-4 w-4" />
+                                        {pdfLoading ? "Generating..." : "PDF"}
+                                    </Button>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <StepByStepSolution solution={solution} />
+                            </CardContent>
+                        </Card>
+                    )}
+                </div>
             </div>
         </div>
     )

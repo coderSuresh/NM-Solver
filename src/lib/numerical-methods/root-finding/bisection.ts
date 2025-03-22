@@ -1,6 +1,6 @@
 import { evaluateExpression, createStep, customFormatNumber } from "../utils";
 
-export function bisection(params: any) {
+export function bisection(params: BisectionParams): BisectionResult {
     const {
         function: func,
         lowerBound,
@@ -9,13 +9,13 @@ export function bisection(params: any) {
         maxIterations = 100
     } = params;
 
-    let a = lowerBound;
-    let b = upperBound;
+    let a = lowerBound!;
+    let b = upperBound!;
     let iteration = 0;
     const tolerance = 0.5 * Math.pow(10, -decimalPlaces);
 
-    const steps: any[] = [];
-    const table: any[][] = [["Iteration", "a", "b", "c", "f(a)", "f(b)", "f(c)", "Error"]];
+    const steps: BisectionStep[] = [];
+    const table: (string | number)[][] = [["Iteration", "a", "b", "c", "f(a)", "f(b)", "f(c)", "Error"]];
 
     let fa = evaluateExpression(func, { x: a });
     let fb = evaluateExpression(func, { x: b });
@@ -41,7 +41,7 @@ export function bisection(params: any) {
     while ((b - a) > 2 * tolerance && iteration < maxIterations) {
         iteration++;
         c = (a + b) / 2;
-        let fc = evaluateExpression(func, { x: c });
+        const fc = evaluateExpression(func, { x: c });
 
         // Add the current step to the steps array for display
         steps.push(createStep(
@@ -80,9 +80,9 @@ export function bisection(params: any) {
     if (!foundExactRoot) {
         iteration++;
         c = (a + b) / 2;
-        let faFinal = evaluateExpression(func, { x: a });
-        let fbFinal = evaluateExpression(func, { x: b });
-        let fcFinal = evaluateExpression(func, { x: c });
+        const faFinal = evaluateExpression(func, { x: a });
+        const fbFinal = evaluateExpression(func, { x: b });
+        const fcFinal = evaluateExpression(func, { x: c });
 
         // Add the final step if root was not found within tolerance
         steps.push(createStep(
@@ -94,7 +94,7 @@ export function bisection(params: any) {
         ));
 
         const previousC = table[table.length - 1][3]; // Get the previous c value from the table
-        const error = Math.abs(c - parseFloat(previousC));
+        const error = Math.abs(c - parseFloat(previousC.toString()));
 
         table.push([
             iteration,

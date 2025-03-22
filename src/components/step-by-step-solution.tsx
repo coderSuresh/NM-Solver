@@ -21,7 +21,7 @@ export function StepByStepSolution({ solution }: StepByStepSolutionProps) {
                     .then(() => {
                         console.log("MathJax typeset completed")
                     })
-                    .catch((err: any) => console.error("MathJax typeset failed:", err))
+                    .catch(() => console.error("MathJax typeset failed:"))
             } else {
                 // Load MathJax if not already loaded
                 window.MathJax = {

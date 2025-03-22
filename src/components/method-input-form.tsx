@@ -145,18 +145,18 @@ const methodInputConfigs: Record<string, InputFieldConfig[]> = {
 
 interface MethodInputFormProps {
     method: string
-    onSolve: (formData: any) => void
+    onSolve: (formData: Record<string, unknown>) => void
     loading: boolean
 }
 
 export function MethodInputForm({ method, onSolve, loading }: MethodInputFormProps) {
-    const [formData, setFormData] = useState<Record<string, any>>({})
+    const [formData, setFormData] = useState<Record<string, unknown>>({})
     const [validationError, setValidationError] = useState<string | null>(null)
 
     // Initialize form with default values
     useState(() => {
         const config = methodInputConfigs[method as keyof typeof methodInputConfigs] || []
-        const defaults: Record<string, any> = {}
+        const defaults: Record<string, unknown> = {}
 
         config.forEach((field) => {
             if (field.defaultValue !== undefined) {
@@ -167,7 +167,7 @@ export function MethodInputForm({ method, onSolve, loading }: MethodInputFormPro
         setFormData(defaults)
     })
 
-    const handleChange = (key: string, value: any) => {
+    const handleChange = (key: string, value: string | number) => {
         setFormData((prev) => ({ ...prev, [key]: value }))
         setValidationError(null) // Clear validation error when user changes input
     }
@@ -182,7 +182,7 @@ export function MethodInputForm({ method, onSolve, loading }: MethodInputFormPro
             }
 
             // Check if lower bound is less than upper bound
-            if (lowerBound >= upperBound) {
+            if (lowerBound === null || upperBound === null || lowerBound >= upperBound) {
                 return "Lower bound must be less than upper bound"
             }
         }
@@ -224,7 +224,7 @@ export function MethodInputForm({ method, onSolve, loading }: MethodInputFormPro
                         <Textarea
                             id={field.id}
                             placeholder={field.placeholder}
-                            value={formData[field.id] || ""}
+                            value={formData[field.id] as string | number || ""}
                             onChange={(e) => handleChange(field.id, e.target.value)}
                             required
                             className={field.className}
@@ -247,7 +247,7 @@ export function MethodInputForm({ method, onSolve, loading }: MethodInputFormPro
                             id={field.id}
                             type={field.type}
                             placeholder={field.placeholder}
-                            value={formData[field.id] || ""}
+                            value={formData[field.id] as string | number | readonly string[] | undefined || ""}
                             onChange={(e) => {
                                 const value = field.type === "number" ? Number.parseFloat(e.target.value) : e.target.value
                                 handleChange(field.id, value)

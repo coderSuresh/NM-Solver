@@ -1,6 +1,6 @@
 import { evaluateExpression, createStep, customFormatNumber } from "../utils";
 
-export function secantMethod(params: any) {
+export function secantMethod(params: SecantMethodParams): SecantMethodResult {
     const {
         function: func,
         x0,
@@ -8,14 +8,6 @@ export function secantMethod(params: any) {
         decimalPlaces = 2,
         maxIterations = 100
     } = params;
-
-    // Creating function f from input equation
-    let f;
-    try {
-        f = new Function('x', `return ${func};`);
-    } catch (error) {
-        throw new Error('Invalid equation format.');
-    }
 
     // Setting a tolerable error (correct up to X decimal places)
     const tolerance = 0.5 * Math.pow(10, -decimalPlaces);
@@ -31,7 +23,7 @@ export function secantMethod(params: any) {
         throw new Error('f(x1) - f(x0) is zero.');
     }
 
-    const steps: any[] = [];
+    const steps: SecantMethodStep[] = [];
     let count = 0;
 
     // Looping until we get a solution correct up to required decimal places

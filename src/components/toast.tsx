@@ -15,7 +15,7 @@ const Toast = ({ title, is_danger, onHide }: { title: string, is_danger: boolean
             }, 5000);
             return () => clearTimeout(timer);
         }
-    }, [show]);
+    }, [show, onHide]);
 
     useEffect(() => {
         if (!title) setShow(false);

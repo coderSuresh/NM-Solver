@@ -1,7 +1,6 @@
 import { createStep, customFormatNumber, evaluateExpression, numericalDerivative } from "../utils";
 
-// Function for Newton-Raphson method
-export function newtonRaphson(params: any) {
+export function newtonRaphson(params: NewtonRaphsonParams): NewtonRaphsonResult {
     const {
         function: equation,
         initialGuess: x0,
@@ -13,7 +12,7 @@ export function newtonRaphson(params: any) {
     const tolerance = 0.5 * Math.pow(10, -decimalPlaces);
 
     let currentX = x0;
-    const steps = [];
+    const steps: NewtonRaphsonStep[] = [];
     let count = 0;
 
     // Looping until we get the solution correct up to the required decimal places

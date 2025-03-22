@@ -4,16 +4,20 @@ import { newtonRaphson } from "./numerical-methods/root-finding/newton-raphson"
 import { secantMethod } from "./numerical-methods/root-finding/secant"
 
 // Main function to solve numerical methods
-export function solveNumericalMethod(method: string, params: any) {
+export function solveNumericalMethod(
+    method: string,
+    params: BisectionParams | NewtonRaphsonParams | SecantMethodParams | Record<string, unknown>
+    
+) {
     switch (method) {
         case "bisection":
-            return bisection(params)
+            return bisection(params as BisectionParams)
         case 'false-position':
-            return falsePosition(params)
+            return falsePosition(params as BisectionParams)
         case 'secant':
-            return secantMethod(params)
+            return secantMethod(params as SecantMethodParams)
         case 'newton-raphson':
-            return newtonRaphson(params)
+            return newtonRaphson(params as NewtonRaphsonParams)
         default:
             throw new Error(`Method ${method} not implemented`)
     }
