@@ -8,7 +8,7 @@
 // Function to evaluate a mathematical expression
 export function evaluateExpression(expression: string, variables: Record<string, number>): number {
     // Replace variable names with their values
-    let jsExpression = expression.replace(/\^/g, "**") // Replace ^ with ** for exponentiation
+    let jsExpression = expression.replace(/\^/g, "**").toLowerCase() // Replace ^ with ** for exponentiation
 
     // Replace variable names with their values
     for (const [variable, value] of Object.entries(variables)) {
