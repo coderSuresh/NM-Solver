@@ -58,7 +58,7 @@ function gauss_seidel(A, b, decimalPlaces = 3, maxIterations = 100) {
             x: x,
             y: y,
             z: z,
-            error: error.toExponential(decimalPlaces),
+            error: error,
         });
 
         //breaking out of loop once we get correct upto X decimal places
@@ -71,3 +71,12 @@ function gauss_seidel(A, b, decimalPlaces = 3, maxIterations = 100) {
     return steps;
 }
 
+const A = [
+    [4, 1, 1],
+    [1, 5, 1],
+    [1, 1, 6]
+];
+const b = [8, 10, 12];
+
+const steps = gauss_seidel(A, b, 2)
+console.log(steps);

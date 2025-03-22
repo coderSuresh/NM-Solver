@@ -52,7 +52,7 @@ function jacobi(A, b, decimalPlaces = 3, maxIterations = 100) {
             x: x,
             y: y,
             z: z,
-            error: error.toExponential(decimalPlaces),
+            error: error,
         });
 
         //breaking out of loop once we get correct upto X decimal places
