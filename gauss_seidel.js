@@ -1,4 +1,4 @@
-function jacobi(A, b, decimalPlaces = 3, maxIterations = 100) {
+function gauss_seidel(A, b, decimalPlaces = 3, maxIterations = 100) {
     //checking the validity of inputs
     if (A.length !== 3 || A[0].length !== 3 || b.length !== 3) {
         throw new Error("Invalid input. Required 3x3 coefficient matrix and 3x1 constant matrix.");
@@ -34,16 +34,22 @@ function jacobi(A, b, decimalPlaces = 3, maxIterations = 100) {
     do {
         iteration++;
 
+        //storing previous value to calculate error
+        const xOld = x;
+        const yOld = y;
+        const zOld = z;
+
+
         //computing next approximation
-        const xNew = (b[0] - A[0][1] * y - A[0][2] * z) / A[0][0];
-        const yNew = (b[1] - A[1][0] * x - A[1][2] * z) / A[1][1];
-        const zNew = (b[2] - A[2][0] * x - A[2][1] * y) / A[2][2];
+        x = (b[0] - A[0][1] * y - A[0][2] * z) / A[0][0];
+        y = (b[1] - A[1][0] * x - A[1][2] * z) / A[1][1];
+        z = (b[2] - A[2][0] * x - A[2][1] * y) / A[2][2];
 
         //calculating error
         const error = Math.max(
-            Math.abs(xNew - x),
-            Math.abs(yNew - y),
-            Math.abs(zNew - z)
+            Math.abs(x - xOld),
+            Math.abs(y - yOld),
+            Math.abs(z - zOld)
         );
 
         //adding current iteration into steps array
@@ -60,12 +66,8 @@ function jacobi(A, b, decimalPlaces = 3, maxIterations = 100) {
             break;
         }
 
-        //updating variables
-        x = xNew;
-        y = yNew;
-        z = zNew;
-
     } while (error > tolerance && iteration < maxIterations);
 
     return steps;
 }
+
