@@ -122,8 +122,14 @@
   }
 }
 
+/* customize mathjax */
 .MJX-TEX {
   font-size: 2rem;
+}
+
+.math {
+  overflow-x: auto;
+  padding: 1rem;
 }
 
 @media (max-width: 640px) {

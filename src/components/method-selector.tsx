@@ -87,9 +87,9 @@ export function MethodSelector() {
 
     return (
         <Tabs defaultValue="root-finding" className="w-full">
-            <TabsList className="grid w-full" style={{ gridTemplateColumns: `repeat(${methodCategories.length}, 1fr)` }}>
+            <TabsList className="flex h-fit w-full p-2 items-start justify-between flex-col sm:flex-row space-x-4 gap-y-4">
                 {methodCategories.map((category) => (
-                    <TabsTrigger key={category.id} value={category.id}>
+                    <TabsTrigger className="m-0 w-full px-2 py-1" key={category.id} value={category.id}>
                         {category.label}
                     </TabsTrigger>
                 ))}
