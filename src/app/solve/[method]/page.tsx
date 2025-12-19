@@ -15,9 +15,12 @@ import GoToTop from "@/components/go-to-top"
 const methodDisplayNames: Record<string, string> = {
     "newton-raphson": "Newton-Raphson Method",
     bisection: "Bisection Method",
-    "gauss-seidel": "Gauss-Seidel Method",
     "false-position": "False Position Method",
     secant: "Secant Method",
+    "gauss-elimination": "Gauss Elimination",
+    "gauss-jordan": "Gauss-Jordan Elimination",
+    "gauss-seidel": "Gauss-Seidel Method",
+    jacobi: "Jacobi Method",
     trapezoidal: "Trapezoidal Rule",
     simpsons: "Simpson's Rule",
     euler: "Euler's Method",

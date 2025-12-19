@@ -141,6 +141,101 @@ const methodInputConfigs: Record<string, InputFieldConfig[]> = {
             defaultValue: 20,
         },
     ],
+    "gauss-elimination": [
+        {
+            id: "matrix",
+            label: "Coefficient Matrix (A)",
+            type: "textarea",
+            placeholder: "Enter matrix row by row, e.g.:\n4,1,1\n1,5,1\n1,1,6",
+            helpText: "Enter each row on a new line, values separated by commas",
+        },
+        {
+            id: "constants",
+            label: "Constants Vector (b)",
+            type: "text",
+            placeholder: "e.g., 8,10,12",
+            helpText: "Enter values separated by commas",
+        },
+    ],
+    "gauss-jordan": [
+        {
+            id: "matrix",
+            label: "Coefficient Matrix (A)",
+            type: "textarea",
+            placeholder: "Enter matrix row by row, e.g.:\n4,1,1\n1,5,1\n1,1,6",
+            helpText: "Enter each row on a new line, values separated by commas",
+        },
+        {
+            id: "constants",
+            label: "Constants Vector (b)",
+            type: "text",
+            placeholder: "e.g., 8,10,12",
+            helpText: "Enter values separated by commas",
+        },
+    ],
+    "gauss-seidel": [
+        {
+            id: "matrix",
+            label: "Coefficient Matrix (A)",
+            type: "textarea",
+            placeholder: "Enter 3x3 matrix row by row, e.g.:\n4,1,1\n1,5,1\n1,1,6",
+            helpText: "Enter each row on a new line, values separated by commas (3x3 matrix required)",
+        },
+        {
+            id: "constants",
+            label: "Constants Vector (b)",
+            type: "text",
+            placeholder: "e.g., 8,10,12",
+            helpText: "Enter 3 values separated by commas",
+        },
+        {
+            id: "decimalPlaces",
+            label: "Decimal Places",
+            type: "number",
+            placeholder: "e.g., 3",
+            defaultValue: 3,
+        },
+        {
+            id: "maxIterations",
+            label: "Maximum Iterations",
+            type: "number",
+            placeholder: "e.g., 100",
+            defaultValue: 100,
+        },
+    ],
+    jacobi: [
+        {
+            id: "matrix",
+            label: "Coefficient Matrix (A)",
+            type: "textarea",
+            placeholder: "Enter 3x3 matrix row by row, e.g.:\n4,1,1\n1,5,1\n1,1,6",
+            helpText: "Enter each row on a new line, values separated by commas (3x3 matrix required)",
+        },
+        {
+            id: "constants",
+            label: "Constants Vector (b)",
+            type: "text",
+            placeholder: "e.g., 8,10,12",
+            helpText: "Enter 3 values separated by commas",
+        },
+        {
+            id: "decimalPlaces",
+            label: "Decimal Places",
+            type: "number",
+            placeholder: "e.g., 3",
+            defaultValue: 3,
+        },
+        {
+            id: "maxIterations",
+            label: "Maximum Iterations",
+            type: "number",
+            placeholder: "e.g., 100",
+            defaultValue: 100,
+        },
+    ],
+    "trapezoidal": [],
+    "simpsons": [],
+    "euler": [],
 }
 
 interface MethodInputFormProps {
@@ -200,11 +295,54 @@ export function MethodInputForm({ method, onSolve, loading }: MethodInputFormPro
             return
         }
 
-        onSolve(formData)
+        // Process form data - parse matrix and constants for linear system methods
+        const processedData = { ...formData };
+
+        if (method === "gauss-elimination" || method === "gauss-jordan" || method === "gauss-seidel" || method === "jacobi") {
+            try {
+                // Parse matrix
+                if (processedData.matrix && typeof processedData.matrix === 'string') {
+                    const matrixRows = (processedData.matrix as string).trim().split('\n');
+                    processedData.matrix = matrixRows.map(row =>
+                        row.split(',').map(val => parseFloat(val.trim()))
+                    );
+                }
+
+                // Parse constants
+                if (processedData.constants && typeof processedData.constants === 'string') {
+                    processedData.constants = (processedData.constants as string)
+                        .split(',')
+                        .map(val => parseFloat(val.trim()));
+                }
+            } catch (err) {
+                setValidationError("Invalid matrix or constants format. Please check your input.");
+                return;
+            }
+        }
+
+        onSolve(processedData)
     }
 
     // Get the input fields for the selected method
     const inputFields = methodInputConfigs[method as keyof typeof methodInputConfigs] || []
+
+    // Check if method is coming soon (no input fields configured)
+    if (inputFields.length === 0) {
+        return (
+            <div className="text-center py-12">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+                    <span className="text-3xl">🚧</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Coming Soon</h3>
+                <p className="text-muted-foreground mb-6">
+                    This numerical method is currently under development and will be available soon.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                    Check back later for updates!
+                </p>
+            </div>
+        )
+    }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
