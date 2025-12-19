@@ -105,3 +105,80 @@ interface SecantMethodResult {
     iterationTable: string[][];
     finalAnswer: string;
 }
+
+// Linear System Methods Types
+interface GaussEliminationParams {
+    matrix: number[][];
+    constants: number[];
+}
+
+interface GaussEliminationResult {
+    title: string;
+    steps: any[];
+    iterationTable: any[][];
+    finalAnswer: string;
+    solution: number[];
+}
+
+interface GaussJordanParams {
+    matrix: number[][];
+    constants: number[];
+}
+
+interface GaussJordanResult {
+    title: string;
+    steps: any[];
+    iterationTable: any[][];
+    finalAnswer: string;
+    solution: number[];
+}
+
+interface GaussSeidelParams {
+    matrix: number[][];
+    constants: number[];
+    decimalPlaces?: number;
+    maxIterations?: number;
+}
+
+interface GaussSeidelIterationStep {
+    iteration: number;
+    x: number;
+    y: number;
+    z: number;
+    error: number;
+}
+
+interface GaussSeidelResult {
+    title: string;
+    steps: any[];
+    iterationTable: any[][];
+    finalAnswer: string;
+    solution: number[];
+    iterations: number;
+    iterationSteps: GaussSeidelIterationStep[];
+}
+
+interface JacobiParams {
+    matrix: number[][];
+    constants: number[];
+    decimalPlaces?: number;
+    maxIterations?: number;
+}
+
+interface JacobiIterationStep {
+    iteration: number;
+    x: number;
+    y: number;
+    z: number;
+    error: number;
+}
+
+interface JacobiResult {
+    title: string;
+    steps: any[];
+    iterationTable: any[][];
+    finalAnswer: string;
+    solution: number[];
+    iterations: number;
+    iterationSteps: JacobiIterationStep[];
+}

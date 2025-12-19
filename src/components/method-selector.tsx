@@ -42,9 +42,24 @@ const methodCategories = [
         label: "Linear Systems",
         methods: [
             {
+                id: "gauss-elimination",
+                title: "Gauss Elimination",
+                description: "Direct method for solving linear systems using forward elimination and back substitution.",
+            },
+            {
+                id: "gauss-jordan",
+                title: "Gauss-Jordan Elimination",
+                description: "Direct method that transforms the system into reduced row echelon form to find the solution.",
+            },
+            {
+                id: "jacobi",
+                title: "Jacobi Method",
+                description: "Iterative method for solving linear systems using simultaneous updates of all variables.",
+            },
+            {
                 id: "gauss-seidel",
                 title: "Gauss-Seidel Method",
-                description: "Iterative technique for solving a system of linear equations by using a matrix of coefficients.",
+                description: "Iterative method that uses updated values immediately, often converging faster than Jacobi.",
             },
         ],
     },
@@ -54,12 +69,12 @@ const methodCategories = [
         methods: [
             {
                 id: "trapezoidal",
-                title: "Trapezoidal Rule",
+                title: "Trapezoidal Rule (Coming Soon)",
                 description: "Numerical integration method that approximates the region under a curve using trapezoids.",
             },
             {
                 id: "simpsons",
-                title: "Simpson's Rule",
+                title: "Simpson's Rule (Coming Soon)",
                 description: "Method for numerical integration that uses quadratic polynomials to approximate the integrand.",
             },
         ],
@@ -70,7 +85,7 @@ const methodCategories = [
         methods: [
             {
                 id: "euler",
-                title: "Euler's Method",
+                title: "Euler's Method (Coming Soon)",
                 description:
                     "First-order numerical procedure for solving ordinary differential equations with a given initial value.",
             },
